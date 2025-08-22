@@ -1,3 +1,4 @@
+import 'package:dalel/core/functions/navigation.dart';
 import 'package:dalel/core/utils/app_strings.dart';
 import 'package:dalel/core/utils/app_text_syle.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +8,17 @@ class ButtonNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Text(
-        AppStrings.skip,
-        style: CustomTextStyles.poppins300style16.copyWith(
-          fontWeight: FontWeight.w400,
+    return GestureDetector(
+      onTap: () {
+        customReplacementNavigate(context, "/signUp");
+      },
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Text(
+          AppStrings.skip,
+          style: CustomTextStyles.poppins300style16.copyWith(
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
     );

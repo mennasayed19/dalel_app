@@ -1,6 +1,5 @@
-import 'package:dalel/core/utils/app_strings.dart';
-import 'package:dalel/core/widgets/custombtn.dart';
 import 'package:dalel/feature/on_boarding/presentation/view/widget/button_nav.dart';
+import 'package:dalel/feature/on_boarding/presentation/view/widget/getbuttons.dart';
 import 'package:dalel/feature/on_boarding/presentation/view/widget/on_boarding_widget_body.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +11,8 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
+  final PageController _controller = PageController(initialPage: 0);
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,12 +20,19 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
               SizedBox(height: 40),
               ButtonNav(),
-              OnBoardingWidgetBody(),
-              SizedBox(height: 60),
-              CustomBtn(text: AppStrings.next),
+              OnBoardingWidgetBody(
+                controller: _controller,
+                onPageChanged: (index) {
+                  setState(() {});
+                  currentIndex = index;
+                },
+              ),
+              SizedBox(height: 45),
+              Getbuttons(currentIndex: currentIndex, controller: _controller),
               SizedBox(height: 17),
             ],
           ),
