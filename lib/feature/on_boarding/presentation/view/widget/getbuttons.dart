@@ -1,4 +1,6 @@
+import 'package:dalel/core/database/cache/cache_helper.dart';
 import 'package:dalel/core/functions/navigation.dart';
+import 'package:dalel/core/services/service_locator.dart';
 import 'package:dalel/core/utils/app_strings.dart';
 import 'package:dalel/core/utils/app_text_syle.dart';
 import 'package:dalel/core/widgets/custombtn.dart';
@@ -21,12 +23,22 @@ class Getbuttons extends StatelessWidget {
           CustomBtn(
             text: AppStrings.createAccount,
             onPressed: () {
+              getIt<CacheHelper>().saveData(
+                key: 'isOnboardingVisited',
+                value: true,
+              );
+
               customReplacementNavigate(context, "/signUp");
             },
           ),
           SizedBox(height: 5),
           GestureDetector(
             onTap: () {
+              getIt<CacheHelper>().saveData(
+                key: 'isOnboardingVisited',
+                value: true,
+              );
+
               customReplacementNavigate(context, "/logIn");
             },
             child: Text(

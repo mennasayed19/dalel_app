@@ -1,14 +1,29 @@
+import 'package:dalel/core/services/service_locator.dart';
+import 'package:dalel/feature/auth/auth_cubit/cubit/auth_cubit.dart';
 import 'package:dalel/feature/auth/presentation/views/login.dart';
-import 'package:dalel/feature/auth/presentation/views/signup.dart';
+import 'package:dalel/feature/auth/presentation/views/signup_view.dart';
 import 'package:dalel/feature/on_boarding/presentation/view/on_boarding_view.dart';
 import 'package:dalel/feature/splash/presentaion/views/splash_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(path: "/", builder: (context, state) => const SplashView()),
     GoRoute(path: "/onBoarding", builder: (context, state) => OnBoardingView()),
-    GoRoute(path: "/signUp", builder: (context, state) => SignUpView()),
-    GoRoute(path: "/logIn", builder: (context, state) => LoginView()),
+    GoRoute(
+      path: "/signUp",
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<AuthCubit>(),
+        child: SignUpView(),
+      ),
+    ),
+    GoRoute(
+      path: "/logIn",
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<AuthCubit>(),
+        child: LoginView(),
+      ),
+    ),
   ],
 );
