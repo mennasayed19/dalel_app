@@ -1,3 +1,4 @@
+import 'package:dalel/core/utils/app_color.dart';
 import 'package:dalel/core/utils/app_strings.dart';
 import 'package:dalel/core/widgets/custombtn.dart';
 import 'package:dalel/feature/auth/auth_cubit/cubit/auth_cubit.dart';
@@ -15,42 +16,48 @@ class CustomSignUpForm extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {},
       builder: (context, state) {
+        AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
         return Form(
+          key: authCubit.signupformkey,
           child: Column(
             children: [
               CustomTextFormFeild(
                 labelText: AppStrings.fristName,
                 onChanged: (fristName) {
-                  BlocProvider.of<AuthCubit>(context).firstName = fristName;
+                  authCubit.firstName = fristName;
                 },
               ),
               CustomTextFormFeild(
                 labelText: AppStrings.lastName,
                 onChanged: (lastName) {
-                  BlocProvider.of<AuthCubit>(context).lastName = lastName;
+                  authCubit.lastName = lastName;
                 },
               ),
               CustomTextFormFeild(
                 labelText: AppStrings.emailAddress,
                 onChanged: (emailAddress) {
-                  BlocProvider.of<AuthCubit>(context).emailAddress =
-                      emailAddress;
+                  authCubit.emailAddress = emailAddress;
                 },
               ),
               CustomTextFormFeild(
                 labelText: AppStrings.password,
                 onChanged: (password) {
-                  BlocProvider.of<AuthCubit>(context).password = password;
+                  authCubit.password = password;
                 },
               ),
               const TermsAndCondationWidget(),
               const SizedBox(height: 88),
               CustomBtn(
                 text: AppStrings.signUp,
+                color: authCubit.updateterms == false
+                    ? AppColors.deepGrey
+                    : null,
                 onPressed: () {
-                  BlocProvider.of<AuthCubit>(
-                    context,
-                  ).signUpWithEmailAndPassword();
+                  if (authCubit.updateterms == true) {
+                    if (authCubit.signupformkey.currentState!.validate()) {
+                      authCubit.signUpWithEmailAndPassword();
+                    }
+                  }
                 },
               ),
             ],

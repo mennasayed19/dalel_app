@@ -11,3 +11,5 @@ final class AuthFailureState extends AuthState {
 
   AuthFailureState({required this.errorMassage});
 }
+
+final class AuthTermAndCondationUpdateState extends AuthState {}
